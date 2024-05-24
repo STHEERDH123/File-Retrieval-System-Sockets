@@ -1,31 +1,31 @@
-# File-Retrieval-System-Sockets
+# File Retrieval System Sockets
 
-This project is a distributed system for efficiently indexing and searching large datasets of text files. It leverages multiple clients to distribute the workload of indexing and performs search operations through a central server.
+This project is a distributed system designed for efficient indexing and searching of large datasets of text files. It utilizes multiple clients to distribute the indexing workload, with a central server managing client requests and processing search operations.
+
 
 ## Project Overview
 
-The system is designed to efficiently handle indexing and searching tasks by distributing the workload across multiple clients. The server manages the clients, processes their requests, and coordinates the overall operation.
+The system aims to handle the indexing and searching of text files by distributing these tasks across multiple clients. A central server coordinates the clients, managing communication and processing search queries.
 
-## Project Structure
+## File Structure
 
-Here is the structure of the project directory:
+The project directory is organized as follows:
 
 ```
 .
 ├── client
-|   ├── Client.java
+│   ├── Client.java
 │   ├── ClientAutomation.java
-|   ├── ClientMain.java
-│   
+│   ├── ClientMain.java
 ├── common
 │   ├── IndexStore.java
 │   ├── IndexMessage.java
-|   ├── IndexEntry.java
+│   ├── IndexEntry.java
 │   ├── SearchMessage.java
-|   ├── SearchResult.java
+│   ├── SearchResult.java
 ├── server
-|   ├── ClientHandler.java
-|   ├── Dispatcher.java
+│   ├── ClientHandler.java
+│   ├── Dispatcher.java
 │   ├── Server.java
 │   ├── ServerMain.java
 ├── datasets
@@ -35,25 +35,28 @@ Here is the structure of the project directory:
 │   ├── Dataset4
 │   ├── Dataset5
 ├── README.md
-
 ```
 
-- **client/**: Client-side implementation files.
-  - `ClientConnection.java`: Manages the communication with the server.
-  - `ClientProcessingEngine.java`: Manages indexing and searching operations on the client.
+### Client Files
+- `Client.java`: Handles the client's main functionality.
+- `ClientAutomation.java`: Manages automated client tasks.
+- `ClientMain.java`: Entry point for the client application.
 
-- **common/**: Shared classes used by both client and server.
-  - `IndexStore.java`: Data structure for storing the index.
-  - `MessageProtocol.java`: Defines the communication protocol.
-  - `SearchResult.java`: Represents a search result.
+### Common Files
+- `IndexStore.java`: Data structure for storing indexed terms.
+- `IndexMessage.java`: Defines the format for index messages.
+- `IndexEntry.java`: Represents an entry in the index.
+- `SearchMessage.java`: Defines the format for search messages.
+- `SearchResult.java`: Represents a search result.
 
-- **server/**: Server-side implementation files.
-  - `Server.java`: Main server class to handle client connections.
-  - `WorkerThread.java`: Manages individual client connections.
+### Server Files
+- `ClientHandler.java`: Manages individual client connections.
+- `Dispatcher.java`: Dispatches tasks to client handlers.
+- `Server.java`: Core server logic.
+- `ServerMain.java`: Entry point for the server application.
 
-- **datasets/**: Sample datasets for testing the indexing and searching functionality.
-
-- **README.md**: Documentation file for the project.
+### Dataset Files
+- `Dataset1` to `Dataset5`: Directories containing text files for indexing and searching.
 
 ## Building the Project
 
@@ -78,53 +81,53 @@ This command compiles all Java source files and places the compiled classes in t
 
 Start the server before launching any clients. Use the following command to start the server:
 ```bash
-java -cp build server.Server <port>
+java -cp build server.ServerMain <port>
 ```
 Replace `<port>` with the desired port number, for example:
 ```bash
-java -cp build server.Server 8080
+java -cp build server.ServerMain 8080
 ```
 
 ### Step 2: Start the Client(s)
 
 Once the server is running, you can start the client(s). Use the following command to start a client:
 ```bash
-java -cp build client.ClientProcessingEngine <serverIp> <port>
+java -cp build client.ClientMain <serverIp> <port>
 ```
 Replace `<serverIp>` with the server's IP address and `<port>` with the server's port number, for example:
 ```bash
-java -cp build client.ClientProcessingEngine 127.0.0.1 8080
+java -cp build client.ClientMain 127.0.0.1 8080
 ```
 
 ### Step 3: Index a Dataset
 
 To index a dataset, invoke the `index` method on the client:
 ```java
-ClientProcessingEngine engine = new ClientProcessingEngine();
-engine.connect("127.0.0.1", 8080);
-engine.index("<datasetPath>");
+Client client = new Client();
+client.connect("127.0.0.1", 8080);
+client.index("<datasetPath>");
 ```
 Replace `<datasetPath>` with the path to the dataset folder, for example:
 ```java
-engine.index("datasets/Dataset1");
+client.index("datasets/Dataset1");
 ```
 
 ### Step 4: Perform a Search
 
 To perform a search, use the `search` method on the client:
 ```java
-engine.search("<query>");
+client.search("<query>");
 ```
 Replace `<query>` with your search query, for example:
 ```java
-engine.search("example AND search");
+client.search("example AND search");
 ```
 
 ### Step 5: Disconnect the Client
 
 To disconnect the client from the server, use the `quit` method:
 ```java
-engine.quit();
+client.quit();
 ```
 
 ## Performance Metrics
