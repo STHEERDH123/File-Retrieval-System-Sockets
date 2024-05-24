@@ -13,19 +13,21 @@ Here is the structure of the project directory:
 ```
 .
 ├── client
-|   ├── AppInterface.java
-│   ├── ClientConnection.java
-|   ├── ClientApp.java
-│   ├── ClientProcessingEngine.java
+|   ├── Client.java
+│   ├── ClientAutomation.java
+|   ├── ClientMain.java
+│   
 ├── common
 │   ├── IndexStore.java
-│   ├── MessageProtocol.java
-│   ├── SearchResult.java
+│   ├── IndexMessage.java
+|   ├── IndexEntry.java
+│   ├── SearchMessage.java
+|   ├── SearchResult.java
 ├── server
-|   ├── AppInterface.java
-|   ├── ServerProcessingEngine.java
-│   ├── ServerApp.java
-│   ├── WorkerThread.java
+|   ├── ClientHandler.java
+|   ├── Dispatcher.java
+│   ├── Server.java
+│   ├── ServerMain.java
 ├── datasets
 │   ├── Dataset1
 │   ├── Dataset2
